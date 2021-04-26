@@ -34,14 +34,14 @@ tachyon_amount=150000
 ESOP=0.1
     
 founders_shares_i,others_shares_i,tachyon_shares_i,ESOP_shares_i,total_shares_i,pps,dilution = funding_round(founders_shares_i,others_shares_i,tachyon_shares_i,ESOP_shares_i,pre_money_amount,round_amount,tachyon_amount,ESOP)
-print (stage)
-print (founders_shares_i)
-print (others_shares_i)
-print (tachyon_shares_i)
-print (ESOP_shares_i)
-print (total_shares_i)
-print (pps)
-print (dilution)
+print ("Stage=", stage)
+print ("founders_shares=", founders_shares_i)
+print ("others_shares=", others_shares_i)
+print ("tachyon_shares=", tachyon_shares_i)
+print ("ESOP_shares=", ESOP_shares_i)
+print ("total_shares=", total_shares_i)
+print ("pps=", pps)
+print ("dilution=", dilution)
 
 
 #Series A 
@@ -50,14 +50,14 @@ pre_money_amount=25000000
 round_amount=10000000
 
 founders_shares_i,others_shares_i,tachyon_shares_i,ESOP_shares_i,total_shares_i,pps,dilution = funding_round(founders_shares_i,others_shares_i,tachyon_shares_i,ESOP_shares_i,pre_money_amount,round_amount,tachyon_amount,ESOP)
-print (stage)
-print (founders_shares_i)
-print (others_shares_i)
-print (tachyon_shares_i)
-print (ESOP_shares_i)
-print (total_shares_i)
-print (pps)
-print (dilution)
+print ("Stage=", stage)
+print ("founders_shares=", founders_shares_i)
+print ("others_shares=", others_shares_i)
+print ("tachyon_shares=", tachyon_shares_i)
+print ("ESOP_shares=", ESOP_shares_i)
+print ("total_shares=", total_shares_i)
+print ("pps=", pps)
+print ("dilution=", dilution)
 
 
 #Series B 
@@ -67,11 +67,11 @@ round_amount=20000000
 
 founders_shares_i,others_shares_i,tachyon_shares_i,ESOP_shares_i,total_shares_i,pps,dilution = funding_round(founders_shares_i,others_shares_i,tachyon_shares_i,ESOP_shares_i,pre_money_amount,round_amount,tachyon_amount,ESOP)
 
-print (stage)
-print (founders_shares_i)
-print (others_shares_i)
-print (tachyon_shares_i)
-print (ESOP_shares_i)
-print (total_shares_i)
-print (pps)
-print (dilution)
+print ("Stage=", stage)
+print ("founders_shares=", founders_shares_i)
+print ("others_shares=", others_shares_i)
+print ("tachyon_shares=", tachyon_shares_i)
+print ("ESOP_shares=", ESOP_shares_i)
+print ("total_shares=", total_shares_i)
+print ("pps=", pps)
+print ("dilution=", dilution)
