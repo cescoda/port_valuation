@@ -4,7 +4,7 @@ import numpy as np
 from scipy import integrate
 
 def funding_round(founders_shares_i, others_shares_i, tachyon_shares_i, ESOP_shares_i, pre_money_amount, round_amount, tachyon_amount, ESOP):
-    """Provide round data"""
+    #Provide round data
 
     total_shares_i = tachyon_shares_i + founders_shares_i + others_shares_i
     others_amount = round_amount - tachyon_amount
