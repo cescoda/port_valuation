@@ -20,30 +20,41 @@ def funding_round(cap_table_array, round_data_array):
     
     total_shares_i = tachyon_shares_i + founders_shares_i + others_shares_i
     
+    others_amount = round_amount - tachyon_amount
+    pps = pre_money_amount/total_shares_i
     founders_shares_f = founders_shares_i
     others_shares_f = others_amount/pps+others_shares_i
     tachyon_shares_f = tachyon_amount/pps+tachyon_shares_i
     total_shares_f = (tachyon_shares_f + founders_shares_f + others_shares_f)/(1-ESOP)
     ESOP_shares_f = ESOP*total_shares_f+ESOP_shares_i
     
-    others_amount = round_amount - tachyon_amount
     post_money_amount = pre_money_amount+round_amount
-    pps = pre_money_amount/total_shares_i
     dilution = round_amount / (pre_money_amount+round_amount)
     
     
-    cap_table_array = np.array([founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f])
-    price_array = np.array(pps, dilution]) 
+    cap_table_array = np.array([founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f],dtype='i')
+    price_array = np.array([pps, dilution]) 
     print (cap_table_array)
     print (price_array)
     
-    #return np.array([cap_table_array, round_data_array])
-    cap_table_array, round_data_array
+    return np.array([cap_table_array, price_array])
+    #cap_table_array, round_data_array
  
-cap_table_array = np.array([1000000,0,0,0]) #founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f
-round_data_array = np.array([8000000000,4000000,150000,0.1]) #pre_money_amount, round_amount, tachyon_amount_i, ESOP
-cap_table_array_Seed, round_data_array_Seed = funding_round(cap_table_array,round_data_array)
+cap_table_array = np.array([1000000,0,0,0],dtype='i') #founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f
+Seed_round_data_array = np.array([8000000,4000000,150000,0.1]) #pre_money_amount, round_amount, tachyon_amount_i, ESOP
+Seed_array = funding_round(cap_table_array,Seed_round_data_array)
+print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f")
+print (Seed_array[0])
+print ("price data: PPS, dilution")
+print (Seed_array[1])
 
+print ("Series A")
+SeriesA_round_data_array = np.array([20000000,10000000,0,0.1]) #pre_money_amount, round_amount, tachyon_amount_i, ESOP
+SeriesA_array = funding_round(Seed_array[0],SeriesA_round_data_array)
+print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f")
+print (SeriesA_array[0])
+print ("price data: PPS, dilution")
+print (SeriesA_array[1])
 
 
 #Seed Round 
@@ -57,7 +68,6 @@ round_amount=4000000
 tachyon_amount=150000
 ESOP=0.1
 
-Seed_Round=
 Seed_Round = (founders_shares_i,others_shares_i,tachyon_shares_i,ESOP_shares_i,pre_money_amount,round_amount, tachyon_amount, ESOP)
 print (Seed_Round)
 #A_Round = funding_round(Seed_Round)
