@@ -57,43 +57,65 @@ def funding_round(cap_table_array, round_data_array):
 Prob_Matrix = np.array([[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1]])
 
 
-Round_data_matrix = np.array([[[12,5,0,0.1],[5,2,0,0.1],[2,0.5,0,0.1]],#seed - high, medium, low
+Round_data_matrix_2 = np.array([[[12,5,0,0.1],[5,2,0,0.1],[2,0.5,0,0.1]],#seed - high, medium, low
                               [[25,15,0,0.1],[15,8,0,0.1],[8,4,0,0.1]],#A
                               [[75,25,0,0.1],[40,20,0,0.1],[25,8,0,0.1]],#B
                               [[250,75,0,0.1],[120,30,0,0.1],[75,25,0,0.1]],#C
                               [[500,150,0,0.1],[250,75,0,0.1],[150,75,0,0.1]],#D
                               [[1000,0,0,0.1],[500,0,0,0.1],[250,0,0,0.1]]])#exit
                               
-Round_step_up_matrix = np.array([[4,3,2],#seed to A - high, medium, low
+
+                              
+Step_up_matrix = np.matrix([[4,3,2],#seed to A - high, medium, low
                               [2.5,2,0.7],#A to B
                               [2,1,0.5],#B to C
                               [1.5,1,0.5],#C to D
                               [1.2,1,0.5]]),#D to exit
                               
-Round_pre_money_matrix = np.array([[10,4,2],#seed - high, medium, low
+Pre_money_matrix = np.matrix([[10,4,2],#seed - high, medium, low
                               [40,25,15],#A
                               [100,50,35],#B
                               [150,120,75],#C
-                              [250,150,100],#D
-                              [1000,500,150]]),#Exit
+                              [250,150,100]])#D
+                              #[1000,500,150]]),#Exit
                               
-Round_size_matrix = np.array([[4,1.5,0.6],#seed - high, medium, low
-                              [15,10,4],#A
-                              [20,15,6],#B
-                              [40,25,10],#C
-                              [40,20,10]])#D
+Size_matrix = np.matrix([[4,1.5,0.6],#seed - high, medium, low
+                        [15,10,4],#A
+                        [20,15,6],#B
+                        [40,25,10],#C
+                        [40,20,10]])#D
                               
-Tachyon_size_matrix = np.array([[0.2,0],#seed - high, medium, low
+Pool_matrix = np.matrix([[0.1],#seed - high, medium, low
+                              [0.1],#A
+                              [0.1],#B
+                              [0.1],#C
+                              [0.1]])#D
+                              
+Tachyon_matrix = np.matrix([[0.2,0,0],#seed - high, medium, low
                               [2,2,0],#A
                               [2,2,0],#B
                               [0,0,0],#C
                               [0,0,0]])#D
+                              
+print (Pre_money_matrix.shape)
+print (Size_matrix.shape)
+print (Pool_matrix.shape)
+print (Tachyon_matrix.shape)
 
-Round_data_matrix = Round_pre_money_matrix
+Round_data_matrix = np.zeros((5,4))
+print (Round_data_matrix)
+print (Size_matrix[:,0])
+print (Pre_money_matrix[:,0])
+print (Tachyon_matrix[:,0])
+print (Pool_matrix)
+Round_data_matrix = np.concatenate((Size_matrix[:,0],Pre_money_matrix[:,0],Tachyon_matrix[:,0], Pool_matrix),axis=1)
+
+print (Round_data_matrix.shape)
+print (Round_data_matrix)
 
 print ("round data matrix")
-print (Round_data_matrix[0][0])#Seed - high
-print (Round_data_matrix[0][1])#Seed - medium
+print (Round_data_matrix[0,0])#Seed - high
+print (Round_data_matrix[2,1])#Seed - medium
 
 print ("Seed Round")
 cap_table_array = np.array([1000000,0,0,0],dtype='i') #founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f
