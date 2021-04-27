@@ -3,6 +3,8 @@ from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 from scipy import integrate
 
+np.set_printoptions(suppress=True)
+
 def funding_round(cap_table_array, round_data_array):
     #Provide round data
     #founders_shares_i, others_shares_i, tachyon_shares_i, ESOP_shares_i, 
@@ -16,8 +18,7 @@ def funding_round(cap_table_array, round_data_array):
     round_amount = round_data_array[1]*1000000
     tachyon_amount = round_data_array[2]*1000000
     ESOP = round_data_array[3]
-    print ("ESOP")
-    print (round_data_array[3])
+    #print ("ESOP=" round_data_array[3])
     
     total_shares_i = tachyon_shares_i + founders_shares_i + others_shares_i
     
@@ -35,7 +36,7 @@ def funding_round(cap_table_array, round_data_array):
     
     print ("founders_shares_i, others_shares_i, tachyon_shares_i, ESOP_shares_i")
     print (cap_table_array)
-    print ("round data array initial")
+    print ("#pre_money_amount ($M), round_amount ($M), tachyon_amount ($M), ESOP (%)")
     print (round_data_array)
     
     cap_table_array = np.array([founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f],dtype='i')
@@ -62,6 +63,33 @@ Round_data_matrix = np.array([[[12,5,0,0.1],[5,2,0,0.1],[2,0.5,0,0.1]],#seed - h
                               [[250,75,0,0.1],[120,30,0,0.1],[75,25,0,0.1]],#C
                               [[500,150,0,0.1],[250,75,0,0.1],[150,75,0,0.1]],#D
                               [[1000,0,0,0.1],[500,0,0,0.1],[250,0,0,0.1]]])#exit
+                              
+Round_step_up_matrix = np.array([[4,3,2],#seed to A - high, medium, low
+                              [2.5,2,0.7],#A to B
+                              [2,1,0.5],#B to C
+                              [1.5,1,0.5],#C to D
+                              [1.2,1,0.5]]),#D to exit
+                              
+Round_pre_money_matrix = np.array([[10,4,2],#seed - high, medium, low
+                              [40,25,15],#A
+                              [100,50,35],#B
+                              [150,120,75],#C
+                              [250,150,100],#D
+                              [1000,500,150]]),#Exit
+                              
+Round_size_matrix = np.array([[4,1.5,0.6],#seed - high, medium, low
+                              [15,10,4],#A
+                              [20,15,6],#B
+                              [40,25,10],#C
+                              [40,20,10]])#D
+                              
+Tachyon_size_matrix = np.array([[0.2,0],#seed - high, medium, low
+                              [2,2,0],#A
+                              [2,2,0],#B
+                              [0,0,0],#C
+                              [0,0,0]])#D
+
+Round_data_matrix = Round_pre_money_matrix
 
 print ("round data matrix")
 print (Round_data_matrix[0][0])#Seed - high
