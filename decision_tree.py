@@ -56,6 +56,39 @@ print (SeriesA_array[0])
 print ("price data: PPS, dilution")
 print (SeriesA_array[1])
 
+print ("Series B")
+SeriesB_round_data_array = np.array([75000000,20000000,0,0.1]) #pre_money_amount, round_amount, tachyon_amount_i, ESOP
+SeriesB_array = funding_round(SeriesA_array[0],SeriesB_round_data_array)
+print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f")
+print (SeriesB_array[0])
+print ("price data: PPS, dilution")
+print (SeriesB_array[1])
+
+print ("Series C")
+SeriesC_round_data_array = np.array([150000000,5000000,0,0.1]) #pre_money_amount, round_amount, tachyon_amount_i, ESOP
+SeriesC_array = funding_round(SeriesB_array[0],SeriesC_round_data_array)
+print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f")
+print (SeriesC_array[0])
+print ("price data: PPS, dilution")
+print (SeriesC_array[1])
+
+print ("Series D")
+SeriesD_round_data_array = np.array([250000000,7500000,0,0.1]) #pre_money_amount, round_amount, tachyon_amount_i, ESOP
+SeriesD_array = funding_round(SeriesC_array[0],SeriesD_round_data_array)
+print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f")
+print (SeriesD_array[0])
+print ("price data: PPS, dilution")
+print (SeriesD_array[1])
+
+#Series Seed, Series A, Series B, Series C, Series E, Exit
+#High
+#Medium
+#Low
+
+Prob_Matrix = np.array([0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1])
+
+Round_data_matrix = np.array([250000000,7500000,0,0.1])
+
 
 #Seed Round 
 stage = "Seed Round"
