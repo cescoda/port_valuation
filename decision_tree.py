@@ -14,11 +14,11 @@ def funding_round(cap_table_array, round_data_array):
     others_shares_i = cap_table_array[1]
     tachyon_shares_i = cap_table_array[2]
     ESOP_shares_i = cap_table_array[3]
-    pre_money_amount = round_data_array[0]*1000000
-    round_amount = round_data_array[1]*1000000
-    tachyon_amount = round_data_array[2]*1000000
-    ESOP = round_data_array[3]
-    #print ("ESOP=" round_data_array[3])
+    pre_money_amount = round_data_array[0,0]*1000000
+    round_amount = round_data_array[0,1]*1000000
+    tachyon_amount = round_data_array[0,2]*1000000
+    ESOP = round_data_array[0,3]
+    print ("here")
     
     total_shares_i = tachyon_shares_i + founders_shares_i + others_shares_i
     
@@ -48,21 +48,28 @@ def funding_round(cap_table_array, round_data_array):
     print (cap_table_array)
     print ("pps, dilution")
     print (price_array)
+    print ("post-money valuation")
+    print (post_money_amount)
     
-    return np.array([cap_table_array, price_array])
+    return np.array([cap_table_array, price_array, post_money_amount])
     #cap_table_array, round_data_array
     
     
     
-Prob_Matrix = np.array([[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1],[0.7,0.2,0.1]])
+Prob_Matrix = np.array([[0.7,0.2,0.1],#seed - high, medium, low
+                        [0.7,0.2,0.1],#A
+                        [0.7,0.2,0.1],#B
+                        [0.7,0.2,0.1],#C
+                        [0.7,0.2,0.1],#D
+                        [0.7,0.2,0.1]])#exit
 
 
-Round_data_matrix_2 = np.array([[[12,5,0,0.1],[5,2,0,0.1],[2,0.5,0,0.1]],#seed - high, medium, low
-                              [[25,15,0,0.1],[15,8,0,0.1],[8,4,0,0.1]],#A
-                              [[75,25,0,0.1],[40,20,0,0.1],[25,8,0,0.1]],#B
-                              [[250,75,0,0.1],[120,30,0,0.1],[75,25,0,0.1]],#C
-                              [[500,150,0,0.1],[250,75,0,0.1],[150,75,0,0.1]],#D
-                              [[1000,0,0,0.1],[500,0,0,0.1],[250,0,0,0.1]]])#exit
+#Round_data_matrix_2 = np.array([[[12,5,0,0.1],[5,2,0,0.1],[2,0.5,0,0.1]],#seed - high, medium, low
+#                              [[25,15,0,0.1],[15,8,0,0.1],[8,4,0,0.1]],#A
+#                              [[75,25,0,0.1],[40,20,0,0.1],[25,8,0,0.1]],#B
+#                              [[250,75,0,0.1],[120,30,0,0.1],[75,25,0,0.1]],#C
+#                              [[500,150,0,0.1],[250,75,0,0.1],[150,75,0,0.1]],#D
+#                              [[1000,0,0,0.1],[500,0,0,0.1],[250,0,0,0.1]]])#exit
                               
 
                               
@@ -71,6 +78,14 @@ Step_up_matrix = np.matrix([[4,3,2],#seed to A - high, medium, low
                               [2,1,0.5],#B to C
                               [1.5,1,0.5],#C to D
                               [1.2,1,0.5]]),#D to exit
+                              
+Pre_money_matrix = np.matrix([[10,4,2],#seed - high, medium, low
+                              [40,25,15],#A
+                              [100,50,35],#B
+                              [150,120,75],#C
+                              [250,150,100]])#D
+                              #[1000,500,150]]),#Exit
+                              
                               
 Pre_money_matrix = np.matrix([[10,4,2],#seed - high, medium, low
                               [40,25,15],#A
@@ -97,42 +112,55 @@ Tachyon_matrix = np.matrix([[0.2,0,0],#seed - high, medium, low
                               [0,0,0],#C
                               [0,0,0]])#D
                               
-print (Pre_money_matrix.shape)
-print (Size_matrix.shape)
-print (Pool_matrix.shape)
-print (Tachyon_matrix.shape)
 
-Round_data_matrix = np.zeros((5,4))
-print (Round_data_matrix)
-print (Size_matrix[:,0])
-print (Pre_money_matrix[:,0])
-print (Tachyon_matrix[:,0])
-print (Pool_matrix)
-Round_data_matrix = np.concatenate((Size_matrix[:,0],Pre_money_matrix[:,0],Tachyon_matrix[:,0], Pool_matrix),axis=1)
 
+Round_data_matrix = np.concatenate((Pre_money_matrix[:,0],Size_matrix[:,0],Tachyon_matrix[:,0], Pool_matrix),axis=1)
+
+
+print ("round data matrix")
 print (Round_data_matrix.shape)
 print (Round_data_matrix)
 
-print ("round data matrix")
 print (Round_data_matrix[0,0])#Seed - high
 print (Round_data_matrix[2,1])#Seed - medium
 
+
+
+print ("************")
+print ("************")
 print ("Seed Round")
 cap_table_array = np.array([1000000,0,0,0],dtype='i') #founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f
-Seed_round_data_array = Round_data_matrix[0][0] #pre_money_amount, round_amount, tachyon_amount_i, ESOP
+print ("Cap table array")
+print (np.transpose(cap_table_array))
+
+Seed_round_data_array = Round_data_matrix[0] #pre_money_amount, round_amount, tachyon_amount_i, ESOP
+print ("Seed round array")
+print (np.transpose(Seed_round_data_array))
+print ("cap table array 0")
+print (cap_table_array[0])
+print (Seed_round_data_array[0,1])
+
 Seed_array = funding_round(cap_table_array,Seed_round_data_array)
 print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f")
 print (Seed_array[0])
 print ("price data: PPS, dilution")
 print (Seed_array[1])
+print ("post-money valuation")
+print (Seed_array[2])
 
+
+print ("************")
+print ("************")
 print ("Series A")
-SeriesA_round_data_array = Round_data_matrix[1][0] #pre_money_amount, round_amount, tachyon_amount_i, ESOP
+SeriesA_round_data_array = Round_data_matrix[1] #pre_money_amount, round_amount, tachyon_amount_i, ESOP
 SeriesA_array = funding_round(Seed_array[0],SeriesA_round_data_array)
 print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f")
 print (SeriesA_array[0])
 print ("price data: PPS, dilution")
 print (SeriesA_array[1])
+
+print ("************")
+print ("************")
 
 print ("Series B")
 SeriesB_round_data_array = Round_data_matrix[2][0] #pre_money_amount, round_amount, tachyon_amount_i, ESOP
@@ -142,6 +170,9 @@ print (SeriesB_array[0])
 print ("price data: PPS, dilution")
 print (SeriesB_array[1])
 
+print ("************")
+print ("************")
+
 print ("Series C")
 SeriesC_round_data_array = Round_data_matrix[3][0] #pre_money_amount, round_amount, tachyon_amount_i, ESOP
 SeriesC_array = funding_round(SeriesB_array[0],SeriesC_round_data_array)
@@ -149,6 +180,11 @@ print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_sh
 print (SeriesC_array[0])
 print ("price data: PPS, dilution")
 print (SeriesC_array[1])
+
+
+print ("************")
+print ("************")
+
 
 print ("Series D")
 SeriesD_round_data_array = Round_data_matrix[4][0] #pre_money_amount, round_amount, tachyon_amount_i, ESOP
