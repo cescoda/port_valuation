@@ -157,7 +157,7 @@ print (total_paths)
 Tachyon_inv_matrix = np.zeros(shape=(total_paths,6))
 Tachyon_value_matrix = np.zeros(shape=(total_paths,6))
 Tachyon_multiple_matrix = np.zeros(shape=(total_paths,6))
-paths_matrix = np.zeros(shape=(total_paths,6))
+path_matrix = np.zeros(shape=(total_paths,6))
 
 
 
@@ -233,11 +233,12 @@ for x0 in range(0,2):
               Tachyon_multiple_matrix[path_number,:] = Tachyon_multiple_array
               path_matrix[path_number,:] = path
               
-              path_number =+ 1
+              path_number += 1
               
               
 
 
 
-
-
+print (Tachyon_value_matrix)
+print (Tachyon_multiple_matrix)
+print (path_matrix)
