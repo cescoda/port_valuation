@@ -18,7 +18,6 @@ def funding_round(cap_table_array, round_data_array):
     round_amount = round_data_array[1]*1000000
     tachyon_amount = round_data_array[2]*1000000
     ESOP = round_data_array[3]
-    print ("here")
     
     total_shares_i = tachyon_shares_i + founders_shares_i + others_shares_i
     
@@ -71,6 +70,7 @@ def Create_Round_Array(Pre_money_matrix, Size_matrix, Tachyon_matrix, Pool_matri
     return Round_data_array
     
     
+
 ## INPUT MATRICES
     
     
@@ -144,39 +144,32 @@ print (path)
 
 
 
-print ("************")
-print ("************")
-print ("Seed Round")
 cap_table_array = np.array([1000000,0,0,0],dtype='i') #founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f
 print ("Cap table array")
 print (cap_table_array)
-#print(Pre_money_matrix[path[0],0])
-#print(Size_matrix[path[1],0])
-#print(Tachyon_matrix[path[2],0])
 
-#print (Pool_matrix[0].size)
-
+print ("************")
+print ("************")
 
 N_Round = 0 #Seed=0,A=1,B=2,C=3,D=4,Exit=5
 
-Seed_round_data_array = Create_Round_Array(Pre_money_matrix, Size_matrix, Tachyon_matrix, Pool_matrix, path, N_Round)
+while N_Round < 5:
+  print ("************")
+  print ("************")
+  print ("Round:")
+  print (N_Round)
+  round_data_array = Create_Round_Array(Pre_money_matrix, Size_matrix, Tachyon_matrix, Pool_matrix, path, N_Round)
+  Round_array = funding_round(cap_table_array,round_data_array)
+  print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f")
+  print (Round_array[0])
+  print ("price data: PPS, dilution")
+  print (Round_array[1])
+  print ("post-money valuation")
+  print (Round_array[2])
+  N_Round +=1
 
-print ("Seed round array")
-print (Seed_round_data_array)                                        
-                              
-#Round_data_matrix[0] #pre_money_amount, round_amount, tachyon_amount_i, ESOP
-
-Seed_array = funding_round(cap_table_array,Seed_round_data_array)
-print ("cap table: founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f")
-print (Seed_array[0])
-print ("price data: PPS, dilution")
-print (Seed_array[1])
-print ("post-money valuation")
-print (Seed_array[2])
 
 
-print ("************")
-print ("************")
 print ("Series A")
 N_Round = 1
 SeriesA_round_data_array = Create_Round_Array(Pre_money_matrix, Size_matrix, Tachyon_matrix, Pool_matrix, path, N_Round)
