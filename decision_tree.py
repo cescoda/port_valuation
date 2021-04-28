@@ -157,6 +157,7 @@ print (total_paths)
 Tachyon_inv_matrix = np.zeros(shape=(total_paths,6))
 Tachyon_value_matrix = np.zeros(shape=(total_paths,6))
 Tachyon_multiple_matrix = np.zeros(shape=(total_paths,6))
+paths_matrix = np.zeros(shape=(total_paths,6))
 
 
 
@@ -174,6 +175,8 @@ for x0 in range(0,2):
               print ("*************************************   NEW PATH *********")
               print ("path: 0=high, 1=medium, 2=low")
               print(x0,x1,x2,x3,x4,x5)
+              print ("Path number")
+              print (path_number)
               
               cap_table_array = np.array([1000000,0,0,0],dtype='i') #founders_shares_f, others_shares_f, tachyon_shares_f, ESOP_shares_f
               print ("Initial cap table (# shares): Founders, Others, Tachyon, Pool")
@@ -228,6 +231,7 @@ for x0 in range(0,2):
               Tachyon_inv_matrix[path_number,:] = Tachyon_inv_array
               Tachyon_value_matrix[path_number,:] = Tachyon_value_array
               Tachyon_multiple_matrix[path_number,:] = Tachyon_multiple_array
+              path_matrix[path_number,:] = path
               
               path_number =+ 1
               
